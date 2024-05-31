@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institute Event</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Institute Event</h1>
+            </div>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Schedule</a></li>
+                <li><a href="#">Speakers</a></li>
+                <li><a href="#">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Join Us for the Biggest Tech Event of the Year</h2>
+                <p>Learn from industry experts, network with professionals, and explore cutting-edge technologies.</p>
+                <a href="#" class="btn">Register Now</a>
+            </div>
+        </section>
+
+        <section class="about">
+            <h2>About the Event</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisi eget consectetur consectetur, nisl nisi consectetur nisi, eget euismod nisi nisi euismod nisi. Nullam euismod, nisi eget consectetur consectetur, nisl nisi consectetur nisi, eget euismod nisi nisi euismod nisi.</p>
+        </section>
+
+        <section class="schedule">
+            <h2>Event Schedule</h2>
+            <div class="schedule-item">
+                <h3>9:00 AM - 10:00 AM</h3>
+                <p>Keynote Speech</p>
+            </div>
+            <div class="schedule-item">
+                <h3>10:15 AM - 11:45 AM</h3>
+                <p>Technical Sessions</p>
+            </div>
+            <!-- Add more schedule items as needed -->
+        </section>
+
+        <section class="speakers">
+            <h2>Featured Speakers</h2>
+            <?php
+            // Connect to the database
+            $servername = "localhost";
+            $username = "your_username";
+            $password = "your_password";
+            $database = "your_database";
+
+            $conn = new mysqli($servername, $username, $password, $database);
+
+            // Check connection
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+
+            // Retrieve speakers from the database
+            $sql = "SELECT * FROM speakers";
+            $result = $conn->query($sql);
+
+            // Display speakers dynamically
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo '<div class="speaker">';
+                    echo '<img src="' . $row["image_path"] . '" alt="' . $row["name"] . '">';
+                    echo '<h3>' . $row["name"] . '</h3>';
+                    echo '<p>' . $row["designation"] . '</p>';
+                    echo '</div>';
+                }
+            } else {
+                echo "No speakers found.";
+            }
+
+            // Close the database connection
+            $conn->close();
+            ?>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Institute Event. All rights reserved.</p>
+    </footer>
+</body>
+</html>
